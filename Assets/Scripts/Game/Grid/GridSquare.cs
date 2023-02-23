@@ -25,6 +25,11 @@ public class GridSquare : MonoBehaviour
         return hoverImage.gameObject.activeSelf;
     }
 
+    public void PlaceShapeOnBoard()
+    {
+        ActivateSquare();
+    }
+
     public void ActivateSquare()
     {
         hoverImage.gameObject.SetActive(false);
@@ -40,17 +45,29 @@ public class GridSquare : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        hoverImage.gameObject.SetActive(true);
+        if(squareOccupied == false)
+        {
+            selected = true;
+            hoverImage.gameObject.SetActive(true);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        hoverImage.gameObject.SetActive(true);
+        selected = true;
+        if (squareOccupied == false)
+        {
+            hoverImage.gameObject.SetActive(true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        hoverImage.gameObject.SetActive(false);
+        if (squareOccupied == false)
+        {
+            selected = false;
+            hoverImage.gameObject.SetActive(false);
+        }
     }
 
 }
